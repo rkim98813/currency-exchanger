@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Currency Exchange</title>
+</head>
+
+<body>
+<div id="app">
+    <h1>Currency Exchange</h1>
+    <form id="currencyForm">
+        <label for="fromCurrencySelect">From Currency:</label>
+        <select id="fromCurrencySelect" name="fromCurrency">
+            <option value="ARS">ARS</option>
+            <option value="AUD">AUD</option>
+            <option value="EUR">EUR</option>
+            <option value="JPY">JPY</option>
+            <option value="KRW">KRW</option>
+            <option value="USD">USD</option>
+            <option value="VND">VND</option>
+            <!-- Add more currency options as needed -->
+        </select>
+
+        <label for="toCurrencySelect">To Currency:</label>
+        <select id="toCurrencySelect" name="toCurrency">
+            <option value="ARS">ARS</option>
+            <option value="AUD">AUD</option>
+            <option value="EUR">EUR</option>
+            <option value="JPY">JPY</option>
+            <option value="KRW">KRW</option>
+            <option value="USD">USD</option>
+            <option value="VND">VND</option>
+            <!-- Add more currency options as needed -->
+        </select>
+
+        <button type="button" onclick="getExchangeRate()">Get Exchange Rate</button>
+    </form>
+    <div id="result"></div>
+</div>
+
+<script>
+    function getExchangeRate() {
+        var fromCurrency = document.getElementById("fromCurrencySelect").value;
+        var toCurrency = document.getElementById("toCurrencySelect").value;
+
+        // Perform an AJAX request to your backend endpoint to get the exchange rate
+        // Replace the URL with the actual endpoint URL
+        fetch('/api/exchange-rate?fromCurrency=' + fromCurrency + '&toCurrency=' + toCurrency)
+            .then(response => response.json())
+            .then(data => {
+                // Display the result in the 'result' div
+                document.getElementById("result").innerHTML = "Exchange Rate: " + data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById("result").innerHTML = "Error fetching exchange rate.";
+            });
+    }
+</script>
+</body>
+
+</html>
